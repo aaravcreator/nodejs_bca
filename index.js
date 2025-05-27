@@ -30,9 +30,7 @@ app.get('/',async (req,res)=>{
 
     // res.send("<h1>THIS IS Homepage</h1> <p>Welcome to the homepage</p>")
 
-        const myServices = await Service.findby({
-            name:"PAINTING"
-        })
+        const myServices = await Service.find()
         console.log(myServices)
 
 
