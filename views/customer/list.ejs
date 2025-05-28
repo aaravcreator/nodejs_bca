@@ -3,11 +3,13 @@
 <head>
   <title>Customer List</title>
   <style>
+    body {
+      font-family: Arial, sans-serif;
+    }
     table {
       width: 90%;
       margin: 20px auto;
       border-collapse: collapse;
-      font-family: Arial, sans-serif;
     }
     th, td {
       border: 1px solid #ccc;
@@ -19,13 +21,35 @@
     }
     h2 {
       text-align: center;
-      font-family: Arial, sans-serif;
+    }
+    form {
+      width: 90%;
+      margin: 0 auto 20px;
+      display: flex;
+      justify-content: flex-end;
+    }
+    input[type="text"] {
+      padding: 8px;
+      font-size: 14px;
+      margin-right: 10px;
+      width: 200px;
+    }
+    input[type="submit"] {
+      padding: 8px 14px;
+      font-size: 14px;
+      cursor: pointer;
     }
   </style>
 </head>
 <body>
 
   <h2>Customer List</h2>
+
+  <!-- 🔍 Search Form -->
+  <form action="" method="GET">
+    <input type="text" name="search" placeholder="Search by name" value="<%= typeof search !== 'undefined' ? search : '' %>">
+    <input type="submit" value="Search">
+  </form>
 
   <table>
     <thead>
@@ -37,25 +61,20 @@
       </tr>
     </thead>
     <tbody>
-        <% if(customers.length == 0 ) { %>
+      <% if(customers.length === 0) { %>
         <tr>
-            <td colspan="4">NO customers </td>
+          <td colspan="4">No customers</td>
         </tr>
-        <% } else { %>
-        <% customers.forEach(customer=>{ %>
-        <tr>
-        <td> <%= customer.name %> </td>
-        <td> <%= customer.address %> </td>
-        <td> <%= customer.phone %> </td>
-        <td> <%= customer.remarks %> </td>
-        </tr>
-
-      <%  }) %>
-
+      <% } else { %>
+        <% customers.forEach(customer => { %>
+          <tr>
+            <td><%= customer.name %></td>
+            <td><%= customer.address %></td>
+            <td><%= customer.phone %></td>
+            <td><%= customer.remarks %></td>
+          </tr>
+        <% }) %>
       <% } %>
-
-      
-    
     </tbody>
   </table>
 

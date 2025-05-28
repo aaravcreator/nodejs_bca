@@ -4,6 +4,7 @@ const mongoose = require('mongoose');
 
 const Service = require('./models/Service')
 const CustomerRoute = require('./routes/customer')
+const AuthRoute = require('./routes/auth')
 const app = express();
 const port = 8000;
 
@@ -23,7 +24,29 @@ app.use(express.json())
 app.set('view engine','ejs')
 
 
+const protectMiddleware = (req,res,next)=>{
+    console.log(req.method)
+    console.log(req.url)
+    if(req.query.token == "12345"){
+            next()
+    }
+    else{
+        res.send("Please Login")
+    }
+    
+}
+// app.use(protectMiddleware)
+
+
+app.use('/auth',AuthRoute)
 app.use('/customer',CustomerRoute)
+
+app.get('/protected',protectMiddleware,(req,res)=>{
+    console.log("Protected Route Accessed")
+    res.send("This is a protected route")
+})
+
+
 app.get('/',async (req,res)=>{
 
     // res.send("<h1>THIS IS Homepage</h1> <p>Welcome to the homepage</p>")

@@ -6,11 +6,28 @@ const router = express.Router()
 // routes
 router.get('/list',async(req,res)=>{
     //res.send("INDEX ROUTE FOR CUSTOMER")
-    const customers =await Customer.find();
+
+    const searchKey = req.query.search;
+    if(searchKey && searchKey.length >0){
+    const customers =await Customer.find({
+       name:searchKey
+    });
     console.log(customers)
     res.render('customer/list.ejs',{
         customers
     })
+
+        }
+    else{
+        const customers = await Customer.find();
+    console.log(customers)
+    res.render('customer/list.ejs',{
+        customers
+        })
+    }
+
+    
+   
 
 })
 
