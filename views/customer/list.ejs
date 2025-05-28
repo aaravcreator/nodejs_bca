@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Customer List</title>
+  <style>
+    table {
+      width: 90%;
+      margin: 20px auto;
+      border-collapse: collapse;
+      font-family: Arial, sans-serif;
+    }
+    th, td {
+      border: 1px solid #ccc;
+      padding: 10px;
+      text-align: left;
+    }
+    th {
+      background-color: #f0f0f0;
+    }
+    h2 {
+      text-align: center;
+      font-family: Arial, sans-serif;
+    }
+  </style>
+</head>
+<body>
+
+  <h2>Customer List</h2>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Address</th>
+        <th>Phone</th>
+        <th>Remarks</th>
+      </tr>
+    </thead>
+    <tbody>
+        <% if(customers.length == 0 ) { %>
+        <tr>
+            <td colspan="4">NO customers </td>
+        </tr>
+        <% } else { %>
+        <% customers.forEach(customer=>{ %>
+        <tr>
+        <td> <%= customer.name %> </td>
+        <td> <%= customer.address %> </td>
+        <td> <%= customer.phone %> </td>
+        <td> <%= customer.remarks %> </td>
+        </tr>
+
+      <%  }) %>
+
+      <% } %>
+
+      
+    
+    </tbody>
+  </table>
+
+</body>
+</html>
