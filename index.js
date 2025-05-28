@@ -1,6 +1,7 @@
 const express = require('express');
 const mongoose = require('mongoose');
 
+
 const Service = require('./models/Service')
 
 const app = express();
@@ -20,9 +21,6 @@ app.use(express.urlencoded({
 }))// for parsing application/x-www-form-urlencoded
 app.use(express.json())
 app.set('view engine','ejs')
-
-
-
 
 
 
@@ -61,6 +59,28 @@ app.get('/',async (req,res)=>{
     })
 
 })
+app.post('/services',async(req,res)=>{
+
+    console.log(req.body)
+   const createdService =  await Service.create(
+    req.body
+   )
+   res.json(createdService)
+  
+//    res.json("SERVICE CREATED")
+    // res.send("API for creating Service")
+})
+
+//update
+app.put('/services/:id',async(req,res)=>{
+
+    const updatedService = await Service.findByIdAndUpdate(
+        req.params.id , req.body,{new:true}
+    )
+    res.json(updatedService)
+
+})
+
 
 // retrieve
 
@@ -77,6 +97,17 @@ app.get('/services/:id',async(req,res)=>{
     }
 
 })
+// delete
+app.delete('/services/:id',async(req,res)=>{
+
+
+    const service = await Service.findByIdAndDelete({
+        _id:req.params.id
+    })
+    res.json(service)
+
+})
+
 
 
 app.get('/services',(req,res)=>{
@@ -85,17 +116,6 @@ app.get('/services',(req,res)=>{
     res.send("THIS IS SERVICES PAGE")
 })
 
-app.post('/services',async(req,res)=>{
-
-    console.log(req.body)
-   const createdService =  await Service.create(
-    req.body
-   )
-   res.json(createdService)
-  
-//    res.json("SERVICE CREATED")
-    // res.send("API for creating Service")
-})
 
 
 app.get('/profile/:username',(req,res)=>{
