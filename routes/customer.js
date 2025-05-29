@@ -19,7 +19,8 @@ router.get('/list',async(req,res)=>{
 
         }
     else{
-        const customers = await Customer.find();
+        const customers = await Customer.find({
+        });
     console.log(customers)
     res.render('customer/list.ejs',{
         customers
@@ -38,9 +39,14 @@ router.get('/create',(req,res)=>{
 router.post('/create',async(req,res)=>{
 
     console.log(req.body)
-    const createdCustomer = await Customer.create(
-        req.body
-    )
+    const userId = req.user.id
+    const createdCustomer = await Customer.create({
+        name:req.body.name,
+        address: req.body.address,
+        phone:req.body.phone,
+        remarks:req.body.remarks,
+      createdBy:userId
+    })
 
     res.redirect('/customer/list')
 })

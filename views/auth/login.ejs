@@ -38,7 +38,7 @@
 </head>
 <body>
 
-  <h2 style="text-align:center;">User Registration Form</h2>
+  <h2 style="text-align:center;">User Login Form</h2>
 
   <form action="" method="POST" >
     <label for="username">Username <span style="color:red;">*</span></label>
@@ -47,12 +47,9 @@
     <label for="address">Password</label>
     <input type="password" id="password" name="password">
     <button type="submit">Submit</button>
- 
-  <%  if(errorMessage){ %>
-
-      <p style="color:red;"> <%= errorMessage %>  </p>
-      
-  <%  } %>
+   <% if(errorMessage) { %>
+      <p style="color:red;"><%= errorMessage %></p>
+  <% } %>
   </form>
 
 </body>

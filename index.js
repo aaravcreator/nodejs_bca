@@ -1,10 +1,13 @@
 const express = require('express');
 const mongoose = require('mongoose');
 
+const CookieParser = require('cookie-parser')
 
 const Service = require('./models/Service')
 const CustomerRoute = require('./routes/customer')
 const AuthRoute = require('./routes/auth')
+
+const AuthMiddleware = require('./middlewares/authMiddleware')
 const app = express();
 const port = 8000;
 
@@ -16,7 +19,7 @@ mongoose.connect('mongodb://localhost:27017/express-demo').then(()=>{
 })
 
 
-
+app.use(CookieParser())
 app.use(express.urlencoded({
     extended:true
 }))// for parsing application/x-www-form-urlencoded
@@ -27,21 +30,28 @@ app.set('view engine','ejs')
 const protectMiddleware = (req,res,next)=>{
     console.log(req.method)
     console.log(req.url)
-    if(req.query.token == "12345"){
-            next()
-    }
-    else{
-        res.send("Please Login")
-    }
+
+    console.log(req.cookies)
+    const jwt_token  = req.cookies.jwttoken
+    console.log(jwt_token)
+
+    // if(req.query.token == "12345"){
+    //         next()
+    // }
+    // else{
+    //     res.send("Please Login")
+    // }
+    next()
     
 }
 // app.use(protectMiddleware)
 
 
 app.use('/auth',AuthRoute)
-app.use('/customer',CustomerRoute)
+app.use('/customer',AuthMiddleware,CustomerRoute)
 
-app.get('/protected',protectMiddleware,(req,res)=>{
+app.get('/protected',AuthMiddleware,(req,res)=>{
+    console.log("FROM PROTECTED ROUTE",req.user)
     console.log("Protected Route Accessed")
     res.send("This is a protected route")
 })

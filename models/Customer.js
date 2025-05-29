@@ -13,7 +13,11 @@ const customerSchema = new mongoose.Schema({
     ,
     remarks:{
         type:String
-    }
+    },
+    createdBy:{
+        type:mongoose.Schema.Types.ObjectId,
+        ref:'User',}
+
 })
 const CustomerModel = mongoose.model('Customer',customerSchema)
 module.exports = CustomerModel
