@@ -58,6 +58,7 @@
         <th>Address</th>
         <th>Phone</th>
         <th>Remarks</th>
+        <th>IMAGE</th>
       </tr>
     </thead>
     <tbody>
@@ -72,6 +73,7 @@
             <td><%= customer.address %></td>
             <td><%= customer.phone %></td>
             <td><%= customer.remarks %></td>
+            <td> <img style="width: 200px;" src="<%= customer.image %>" alt=""> </td>
           </tr>
         <% }) %>
       <% } %>

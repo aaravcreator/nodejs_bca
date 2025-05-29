@@ -1,6 +1,6 @@
 const express = require('express');
 const mongoose = require('mongoose');
-
+const path = require('path')
 const CookieParser = require('cookie-parser')
 
 const Service = require('./models/Service')
@@ -11,12 +11,19 @@ const AuthMiddleware = require('./middlewares/authMiddleware')
 const app = express();
 const port = 8000;
 
+
+
+
+
 mongoose.connect('mongodb://localhost:27017/express-demo').then(()=>{
     console.log("Connected to MongoDB successfully")
 })
 .catch((err)=>{
     console.error("Error connecting to MongoDB", err);
 })
+
+app.use(express.static(path.join(__dirname,'public')));
+app.use('/uploads',express.static(path.join(__dirname,'uploads')));
 
 
 app.use(CookieParser())

@@ -35,12 +35,16 @@
       background-color: #45a049;
     }
   </style>
+
+    <script src="/myscript.js"></script>
+
+
 </head>
 <body>
 
   <h2 style="text-align:center;">Customer Form</h2>
 
-  <form action="" method="POST">
+  <form action="" method="POST" enctype="multipart/form-data" >
     <label for="name">Name <span style="color:red;">*</span></label>
     <input type="text" id="name" name="name" required>
 
@@ -52,7 +56,9 @@
 
     <label for="remarks">Remarks</label>
     <textarea id="remarks" name="remarks" rows="4"></textarea>
-
+     <label for="image">Image</label>
+    <input type="file" id="image" name="image">
+    
     <button type="submit">Submit</button>
   </form>
 
