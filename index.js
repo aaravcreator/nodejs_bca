@@ -34,6 +34,13 @@ app.use(express.urlencoded({
     extended:true
 }))// for parsing application/x-www-form-urlencoded
 app.use(express.json())
+
+app.use((req,res,next)=>{
+   res.locals.businessName = "Pashupati Paints"
+    next()
+}
+)
+
 app.set('view engine','ejs')
 
 
@@ -95,7 +102,7 @@ app.get('/',async (req,res)=>{
     ]
 
     res.render('homepage',{
-        businessName:"PASUPATI PAINTS",
+        // businessName:"PASUPATI PAINTS",
         title:"Homepage",
         services:myServices,
         message:"Welcome to the homepage"
@@ -107,7 +114,7 @@ app.get('/contact',(req,res)=>{
 
 
     res.render('contact',{
-        businessName:"PASHUPATI PAINTS",
+        // businessName:"PASHUPATI PAINTS",
         title:"Contact Us",
         message:"Welcome to the contact page"
     })
@@ -151,7 +158,7 @@ app.post('/services',async(req,res)=>{
    const createdService =  await Service.create(
     req.body
    )
-   res.json(createdService)
+   res.status(201).json(createdService)
   
 //    res.json("SERVICE CREATED")
     // res.send("API for creating Service")
@@ -163,7 +170,7 @@ app.put('/services/:id',async(req,res)=>{
     const updatedService = await Service.findByIdAndUpdate(
         req.params.id , req.body,{new:true}
     )
-    res.json(updatedService)
+    res.status(200).json(updatedService)
 
 })
 
@@ -179,7 +186,7 @@ app.get('/services/:id',async(req,res)=>{
         res.json(service)
     }
     catch(error){
-        res.json(error.message)
+        res.status(404).json(error.message)
     }
 
 })
