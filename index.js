@@ -2,14 +2,17 @@ const express = require('express');
 const mongoose = require('mongoose');
 const path = require('path')
 const CookieParser = require('cookie-parser')
+require('dotenv').config(path.join(__dirname, '.env'))
+const sendMail = require('./services/mailer')
 
 const Service = require('./models/Service')
+const Contact = require('./models/Contact')
 const CustomerRoute = require('./routes/customer')
 const AuthRoute = require('./routes/auth')
 
 const AuthMiddleware = require('./middlewares/authMiddleware')
 const app = express();
-const port = 8000;
+const port = process.env.PORT || 3000;
 
 
 
@@ -99,6 +102,45 @@ app.get('/',async (req,res)=>{
     })
 
 })
+
+app.get('/contact',(req,res)=>{
+
+
+    res.render('contact',{
+        businessName:"PASHUPATI PAINTS",
+        title:"Contact Us",
+        message:"Welcome to the contact page"
+    })
+})
+
+app.post('/contact',async(req,res)=>{{
+    console.log(req.body)
+    const createdContact = await Contact.create(req.body)
+
+    const subject = `New Contact request from ${req.body.email}`
+    const html_message = `
+        <h2> NAME : ${req.body.name} </h2>
+        <h2> PHONE : ${req.body.phone} </h2>
+        <h2> EMAIL : ${req.body.email} </h2>
+        <h2> MESSAGE </h2>
+        <p> ${req.body.message} </p>
+    `
+
+   const status = await  sendMail('aaravpoudel.pinnov@gmail.com',subject,html_message )
+
+
+    res.render('contact',{
+        businessName:"PASHUPATI PAINTS",
+        title:"Contact Us",
+        message:"Welcome to the contact page"
+    })
+
+
+
+}})
+
+
+
 
 
 

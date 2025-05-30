@@ -71,6 +71,8 @@ router.post('/create',upload.single('image'),async(req,res)=>{
     res.redirect('/customer/list')
 })
 
+
+
 module.exports = router
 
 

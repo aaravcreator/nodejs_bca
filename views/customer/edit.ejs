@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Customer Form</title>
+  <style>
+    form {
+      max-width: 400px;
+      margin: auto;
+      padding: 20px;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      font-family: Arial, sans-serif;
+    }
+    label {
+      display: block;
+      margin-top: 10px;
+    }
+    input, textarea {
+      width: 100%;
+      padding: 8px;
+      margin-top: 5px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+    }
+    button {
+      margin-top: 15px;
+      padding: 10px 20px;
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #45a049;
+    }
+  </style>
+
+    <script src="/myscript.js"></script>
+
+
+</head>
+<body>
+
+  <h2 style="text-align:center;">Edit Customer Form</h2>
+
+  <form action="" method="POST" enctype="multipart/form-data" >
+    <label for="name">Name <span style="color:red;">*</span></label>
+    <input type="text" id="name" name="name" required>
+
+    <label for="address">Address</label>
+    <input type="text" id="address" name="address">
+
+    <label for="phone">Phone</label>
+    <input type="text" id="phone" name="phone">
+
+    <label for="remarks">Remarks</label>
+    <textarea id="remarks" name="remarks" rows="4"></textarea>
+     <label for="image">Image</label>
+    <input type="file" id="image" name="image">
+    
+    <button type="submit">Submit</button>
+  </form>
+
+</body>
+</html>
